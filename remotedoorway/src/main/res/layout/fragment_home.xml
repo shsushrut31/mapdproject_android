@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="remotedoorway.byteme.com.fragment.NearYouFragment">
+
+
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvfraghomenearusers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nonearyoufound"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"/>
+    <ImageView
+        android:src="@drawable/nofriendimage"
+        android:id="@+id/ivfraghomenearusers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_below="@id/tvfraghomenearusers"
+        android:scaleType="centerInside"/>
+
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvfraghomenearusers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

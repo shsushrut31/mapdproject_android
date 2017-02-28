@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/friendlistviewcell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_parent_rounded_corner"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+
+        <TextView
+            android:id="@+id/tvfriendlistusername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Username"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_toEndOf="@+id/imgvfriendlistuserdp" />
+
+        <ImageView
+            android:id="@+id/imgvfriendlistuserdp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/app_iconlarge"
+            android:layout_alignParentTop="true" />
+
+
+
+
+    </RelativeLayout>
+</RelativeLayout>

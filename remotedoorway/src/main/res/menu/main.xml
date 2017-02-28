@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_friendrequest"
+        android:orderInCategory="100"
+        android:title="@string/action_friendrequest"
+        android:icon="@drawable/ic_users_nav_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_app_notificaton"
+        android:orderInCategory="100"
+        android:title="@string/action_app_notificatons"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="always" />
+</menu>

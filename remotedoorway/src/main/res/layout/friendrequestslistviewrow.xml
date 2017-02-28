@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_parent_rounded_corner"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+
+        <ImageView
+            android:id="@+id/imgvfriendrequestuserdp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/app_iconlarge" />
+
+
+        <TextView
+            android:id="@+id/tvfriendrequestsusername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imgvfriendrequestuserdp" />
+
+        <TextView
+            android:id="@+id/tvfriendrequestsusersex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Textfff"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@+id/tvfriendrequestsusername"
+            android:layout_toEndOf="@+id/imgvfriendrequestuserdp" />
+
+        <TextView
+            android:id="@+id/tvfriendrequestsuserdevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relation"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@+id/tvfriendrequestsusersex"
+            android:layout_toEndOf="@+id/imgvfriendrequestuserdp" />
+
+        <Button
+            android:id="@+id/btnfriendrequestsreject"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FF5722"
+            android:text="@string/btnfriendrequestsreject"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_below="@+id/imgvfriendrequestuserdp"
+            android:layout_toEndOf="@+id/btnfriendrequestsaccept"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="13dp" />
+
+        <Button
+            android:id="@+id/btnfriendrequestsaccept"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FF5722"
+            android:text="@string/btnfriendrequestsaccept"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginStart="18dp"
+            android:layout_alignBaseline="@+id/btnfriendrequestsreject"
+            android:layout_alignBottom="@+id/btnfriendrequestsreject"
+            android:layout_toEndOf="@+id/imgvfriendrequestuserdp" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
