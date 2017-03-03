@@ -281,7 +281,7 @@ public class NearYouFragment extends Fragment {
             Button btnSendRequest=(Button)itemview.findViewById(R.id.imgbtnnearyousendreq);
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReferenceFromUrl("gs://away-obscure-2.appspot.com");
+            StorageReference storageRef = storage.getReferenceFromUrl(getString(R.string.firebasestorageurl));
 
             StorageReference dpref = storageRef.child(currentUser.getDPURL());
 
