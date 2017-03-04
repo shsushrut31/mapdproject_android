@@ -274,7 +274,7 @@ public class SignupActivity extends AppCompatActivity {
                                             map2.put("DPURL",taskSnapshot.getMetadata().getDownloadUrl().getLastPathSegment().toString());
                                             message_root.updateChildren(map2);
                                             progressBar.setVisibility(View.GONE);
-                                            startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                            startActivity(new Intent(SignupActivity.this, HomeScreenActivity.class));
                                             finish();
                                         }
                                     });
