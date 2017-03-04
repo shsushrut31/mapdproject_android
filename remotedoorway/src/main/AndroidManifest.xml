@@ -14,13 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".activity.PrivacyPolicyActivity"
-            android:label="@string/activity_title_privacy_policy"></activity>
+
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -41,7 +35,10 @@
 
         <service android:name=".services.GPSTracker" />
 
-        <activity android:name=".activity.HomeScreenActivity"></activity>
+        <activity android:name=".activity.HomeScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
     </application>
 
 </manifest>

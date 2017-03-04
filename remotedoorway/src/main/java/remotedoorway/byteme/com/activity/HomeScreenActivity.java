@@ -1,5 +1,7 @@
 package remotedoorway.byteme.com.activity;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,12 +15,20 @@ import java.util.List;
 
 import remotedoorway.byteme.com.R;
 import remotedoorway.byteme.com.fragment.DoorListFragment;
+import remotedoorway.byteme.com.fragment.LogsFragment;
 import remotedoorway.byteme.com.fragment.SettingsFragment;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private float[] mGravity;
+    private float mAccel;
+    private float mAccelCurrent;
+    private float mAccelLast;
+    private SensorManager sensorMan;
+    private Sensor accelerometer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +44,19 @@ public class HomeScreenActivity extends AppCompatActivity {
     }
 
     private void setupTabIcons() {
+        tabLayout.setBackgroundColor(getResources().getColor(R.color.background));
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_local_movies_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_action_ic_report_tab);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_adduser);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_settings_black_24dp);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DoorListFragment(), "HOME");
-        adapter.addFragment(new SettingsFragment(), "TWO");
+        adapter.addFragment(new LogsFragment(), "Logs");
+        adapter.addFragment(new LogsFragment(), "Shared");
+        adapter.addFragment(new SettingsFragment(), "Settings");
         viewPager.setAdapter(adapter);
     }
 
