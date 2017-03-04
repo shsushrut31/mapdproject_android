@@ -16,7 +16,7 @@ import remotedoorway.byteme.com.R;
  * {@link DoorListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link DoorListFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * create an instance of this fragmen
  */
 public class DoorListFragment extends Fragment {
     public DoorListFragment() {
