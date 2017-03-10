@@ -1,1 +1,1 @@
-include ':app', ':remotedoorway'
+include ':app', ':remotedoorway', ':org.eclipse.paho.android.service'
