@@ -1,45 +1,10 @@
 <resources>
     <string name="app_name">A lobscur</string>
 
-    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
-    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
-    <string name="openDrawer">Open_drawer</string>
-    <string name="closeDrawer">Close_drawer</string>
-
     <!-- Navigation Drawer menu labels -->
-    <string name="nav_nearyou">Près de toi</string>
-    <string name="nav_friends">copains</string>
-    <string name="nav_blockedusers">Utilisateurs bloqués</string>
-    <string name="nav_help">Aidez-moi</string>
-    <string name="nav_notifications">Notifications</string>
-    <string name="nav_settings">Paramètres</string>
-    <string name="nav_about_us">À propos de nous</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
-    <string-array name="nav_item_activity_titles">
-        <item>Accueil</item>
-        <item>copains</item>
-        <item>Utilisateurs bloqués</item>
-        <item>Paramètres</item>
-        <item>Aidez-moi</item>
-    </string-array>
 
-    <string name="activity_title_about_us">À propos de nous</string>
-    <string name="activity_title_privacy_policy">
-Politique de confidentialité</string>
-    <string name="action_clear_all">Tout effacer</string>
-    <string name="action_friendrequest">Demandes dami</string>
-    <string name="action_app_notificatons">
-Notifications dapplication</string>
-    <string name="action_mark_all_read">Tout marquer comme lu</string>
-    <string name="privacy_policy">Politique de confidentialité</string>
-    <string name="btnnearyousendreq">Envoyer une demande</string>
-
-
-    <string name="btnfriendrequestsaccept">Acceptez</string>
-    <string name="btnfriendrequestsreject">Rejeter</string>
-
-    <string name="fragnofriendrequests">Aucune demande trouvée!</string>
 
     <string name="btn_signup_selectimage">Sélectionner une photo de profil</string>
     <string name="action_sign_in_short">registre</string>
@@ -52,18 +17,11 @@ Notifications dapplication</string>
     <string name="etsignupconfirmpassword">Confirmez le mot de passe</string>
     <string name="minimum_password">Mot de passe trop court, entrez au moins 6 caractères!</string>
     <string name="auth_failed"> Échec de lauthentification, vérifiez votre adresse électronique et votre mot de passe ou inscrivez-vous</string>
-    <string name="change_email">Changer le-mail</string>
-    <string name="change_password">Changer le mot de passe</string>
 
 
-    <string name="send_password_reset_email">Envoyer le mot de passe de réinitialisation du mot de passe</string>
-    <string name="remove_user">Supprimer lutilisateur</string>
-    <string name="new_pass">nouveau mot de passe</string>
-    <string name="title_activity_profile">Base de feu</string>
     <string name="title_activity_login">se connecter</string>
     <string name="hint_email">Email</string>
     <string name="etsignuppassword">Mot de passe</string>
-    <string name="hint_name">Nom complet</string>
     <string name="btn_login">SIDENTIFIER</string>
     <string name="btn_link_to_register">Pas un membre? Inscrivez-vous maintenant!</string>
     <string name="btn_link_to_login">Déjà enregistré. Identifiez-vous!</string>
@@ -71,14 +29,8 @@ Notifications dapplication</string>
     <string name="btn_forgot_password">Réinitialiser lactivité du mot de passe</string>
     <string name="btn_reset_password">réinitialiser le mot de passe</string>
     <string name="btn_back"><![CDATA[<< Back]]></string>
-    <string name="hint_new_email">nouveau courriel</string>
-    <string name="btn_change">Changement</string>
-    <string name="btn_send">Envoyer</string>
-    <string name="btn_remove">Retirer</string>
-    <string name="btn_sign_out">Se déconnecter</string>
     <string name="lbl_forgot_password">mot de passe oublié?</string>
     <string name="forgot_password_msg">Nous avons juste besoin de votre identifiant de courriel enregistré pour vous envoyer des instructions de réinitialisation de mot de passe.</string>
-    <string name="nonearyoufound">Ohh .. Il semble quaucun utilisateur nest près de chez vous!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">
