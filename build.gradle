@@ -13,6 +13,26 @@ buildscript {
     }
 }
 
+ext{
+
+    compileSdkVersion = 24
+    buildToolsVersion = '23.0.3'
+
+
+    group = 'org.eclipse.paho'
+
+    serviceArchivesBaseName = 'org.eclipse.paho.android.service'
+    serviceVersion = '1.1.2-SNAPSHOT'
+
+    clientVersion = '1.1.1-SNAPSHOT'
+
+    mavenUrl = "https://repo.eclipse.org/content/repositories/paho-snapshots/"
+
+    supportLibVersion = '24.2.1'
+
+}
+
+
 allprojects {
     repositories {
         jcenter()
