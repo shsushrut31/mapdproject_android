@@ -50,7 +50,7 @@ public class MQTTPahoExampleActivity extends AppCompatActivity {
 
     String clientId = "ExampleAndroidClient";
     final String subscriptionTopic = "exampleAndroidTopic";
-    final String publishTopic = "exampleAndroidPublishTopic";
+    final String publishTopic = "exampleAndroidTopic";
     final String publishMessage = "Hello World!";
 
 
