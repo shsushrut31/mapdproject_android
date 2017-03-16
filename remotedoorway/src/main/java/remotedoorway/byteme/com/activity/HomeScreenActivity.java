@@ -17,6 +17,7 @@ import remotedoorway.byteme.com.R;
 import remotedoorway.byteme.com.fragment.DoorListFragment;
 import remotedoorway.byteme.com.fragment.LogsFragment;
 import remotedoorway.byteme.com.fragment.SettingsFragment;
+import remotedoorway.byteme.com.fragment.SharedFragment;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -55,7 +56,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DoorListFragment(), "HOME");
         adapter.addFragment(new LogsFragment(), "Logs");
-        adapter.addFragment(new LogsFragment(), "Shared");
+        adapter.addFragment(new SharedFragment(), "Shared");
         adapter.addFragment(new SettingsFragment(), "Settings");
         viewPager.setAdapter(adapter);
     }
