@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mapdproject_android.iml" filepath="$PROJECT_DIR$/mapdproject_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mapd_project.iml" filepath="$PROJECT_DIR$/mapd_project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/org.eclipse.paho.android.service/org.eclipse.paho.android.service.iml" filepath="$PROJECT_DIR$/org.eclipse.paho.android.service/org.eclipse.paho.android.service.iml" />
       <module fileurl="file://$PROJECT_DIR$/remotedoorway/remotedoorway.iml" filepath="$PROJECT_DIR$/remotedoorway/remotedoorway.iml" />
     </modules>
   </component>

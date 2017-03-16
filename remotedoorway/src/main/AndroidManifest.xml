@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,11 +20,11 @@
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.SignupActivity"
@@ -34,8 +36,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".services.GPSTracker" />
+        <service android:name="org.eclipse.paho.android.service.MqttService" >
+        </service>
 
         <activity android:name=".activity.HomeScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+
+        <activity android:name=".activity.MQTTPahoExampleActivity"
             android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
