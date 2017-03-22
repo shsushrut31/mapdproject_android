@@ -42,6 +42,9 @@
     <string name="tvsettingsemailaddress">Your Email address: </string>
     <string name="btnsettingsupdate">Update</string>
     <string name="btnsettingssignout">Sign Out</string>
+    <string name="tvownerdoorlist">Your Doors</string>
+    <string name="username_error">Please enter your Username!!!</string>
+    <string name="password_error">Please enter your Password!!!</string>
 
 
 </resources>

@@ -23,18 +23,20 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import remotedoorway.byteme.com.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginView{
 
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+    private LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        presenter = new LoginPresenter(this, new LoginService() {
+        });
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -76,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                presenter.onClick();
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
@@ -116,6 +119,26 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @Override
+    public String getUserName() {
+        return inputEmail.getText().toString();
+    }
+
+    @Override
+    public void showUsernameError(int resId) {
+        inputEmail.setError(getString(resId));
+    }
+
+    @Override
+    public String getPassword() {
+        return inputPassword.getText().toString();
+    }
+
+    @Override
+    public void showPasswordError(int resId) {
+        inputPassword.setError(getString(resId));
     }
 }
 
