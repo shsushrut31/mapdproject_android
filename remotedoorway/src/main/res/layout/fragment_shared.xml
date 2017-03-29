@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cba"
+    android:background="#B3E5FC"
     tools:context="remotedoorway.byteme.com.fragment.SharedFragment">
 
 
@@ -53,7 +53,8 @@
             android:layout_marginEnd="13dp"
             android:text="Add User"
             android:layout_alignTop="@+id/txtEmail"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:background="#FFEB3B"/>
 
         <ListView
             android:layout_width="match_parent"
