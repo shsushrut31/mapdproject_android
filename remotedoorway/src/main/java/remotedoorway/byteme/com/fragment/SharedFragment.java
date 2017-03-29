@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,11 +33,14 @@ public class SharedFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     List<Doors> OwnerDoorsList =new ArrayList<Doors>();
 
 
-    ListView ownerlistview;
-    ArrayAdapter<Doors> owneradaptor;
+    Spinner doorSelector;
+    ListView doorUserList;
+    Button addUser;
+    ArrayAdapter<Doors> myadapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -47,15 +52,7 @@ public class SharedFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SharedFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static SharedFragment newInstance(String param1, String param2) {
         SharedFragment fragment = new SharedFragment();
         Bundle args = new Bundle();
@@ -68,10 +65,7 @@ public class SharedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
         populateFriendRequets();
     }
 
@@ -79,11 +73,19 @@ public class SharedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_shared, container, false);
 
-        owneradaptor = new OwnerDoorAdaptor();
+       // String[] myStringArray = {"Alpha", "Beta", "Charlie"};
 
-        ownerlistview = (ListView) view.findViewById(R.id.lv_fragment_doorlist_ownerdoorlist);
+         doorSelector = (Spinner) view.findViewById(R.id.array_list1);
+         doorUserList = (ListView) view.findViewById(R.id.doorUserList);
+         addUser = (Button) view.findViewById(R.id.btnAddUser);
+         myadapter = new ArrayAdapter<Doors>(getActivity(),
+                                                                android.R.layout.simple_list_item_1,
+                                                                OwnerDoorsList);
+       // doorSelector.setAdapter(myadapter);
+
 
         return view;
 
@@ -94,8 +96,16 @@ public class SharedFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        ownerlistview.setAdapter(owneradaptor);
     }
+
+
+
+
+
+
+
+
+
 
 
     private void populateFriendRequets()
@@ -124,19 +134,23 @@ public class SharedFragment extends Fragment {
                     Log.v("Owners got:",doors.toString());
                 }
 
+                doorSelector.setAdapter(myadapter);
+               // ownerlistview.setAdapter(owneradaptor);
 
-                ownerlistview.setAdapter(owneradaptor);
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
+
         });
 
     }
 
-
+/*
 
     private class OwnerDoorAdaptor extends ArrayAdapter<Doors>
     {
@@ -161,6 +175,7 @@ public class SharedFragment extends Fragment {
         }
     }
 
+*/
 
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -2,31 +2,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#cba"
     tools:context="remotedoorway.byteme.com.fragment.SharedFragment">
 
 
-    <LinearLayout android:layout_weight="1"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvownerdoorlist" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="4pt"
+        android:paddingTop="4pt"
+        android:paddingBottom="4pt"
+        android:paddingRight="4pt">
 
-    <LinearLayout android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_width="fill_parent">
+        <Spinner
+            android:id="@+id/array_list1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/editText2"
+            android:padding="10dp"
+            android:popupBackground="#abb"/>
+
+        <TextView
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Select Door"
+            android:padding="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/txtEmail" />
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText2"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/btnAddUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:text="Add User"
+            android:layout_alignTop="@+id/txtEmail"
+            android:layout_alignParentEnd="true" />
 
         <ListView
-            android:id="@+id/lv_fragment_doorlist_ownerdoorlist"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btnAddUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:id="@+id/doorUserList"/>
 
-        </ListView>
-    </LinearLayout>
-    </LinearLayout>
 
+    </RelativeLayout>
 </FrameLayout>
