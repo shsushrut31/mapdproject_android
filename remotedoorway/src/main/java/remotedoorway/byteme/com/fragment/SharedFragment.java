@@ -8,17 +8,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -26,21 +30,25 @@ import java.util.List;
 
 import remotedoorway.byteme.com.R;
 import remotedoorway.byteme.com.models.Doors;
+import remotedoorway.byteme.com.models.UserInfo;
 
-public class SharedFragment extends Fragment {
+public class SharedFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
 
-    List<Doors> OwnerDoorsList =new ArrayList<Doors>();
+    List<Doors> DoorsList =new ArrayList<Doors>();
+    List<UserInfo> UsersList =new ArrayList<UserInfo>();
 
 
     Spinner doorSelector;
     ListView doorUserList;
+    EditText txtUserId;
     Button addUser;
     ArrayAdapter<Doors> myadapter;
+    ArrayAdapter<UserInfo> usersadapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -80,12 +88,55 @@ public class SharedFragment extends Fragment {
 
          doorSelector = (Spinner) view.findViewById(R.id.array_list1);
          doorUserList = (ListView) view.findViewById(R.id.doorUserList);
+         txtUserId = (EditText) view.findViewById(R.id.txtEmail);
          addUser = (Button) view.findViewById(R.id.btnAddUser);
          myadapter = new ArrayAdapter<Doors>(getActivity(),
                                                                 android.R.layout.simple_list_item_1,
-                                                                OwnerDoorsList);
-       // doorSelector.setAdapter(myadapter);
+                 DoorsList);
+        usersadapter = new ArrayAdapter<UserInfo>(getActivity(),
+                                                            android.R.layout.simple_list_item_1,
+                                                             UsersList);
 
+
+        doorSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                final String switchuserid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+                final String txtAddUser = parent.getItemAtPosition(position).toString();
+
+                FirebaseDatabase database= FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = database.getReference();
+                databaseReference.child("UserInfo").child(switchuserid).child("Doors").child("Owner").child(switchuserid)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                DataSnapshot DSOwnerDoors = dataSnapshot.child("SharedWith");
+                                UsersList.clear();
+
+                                for (DataSnapshot userRows : DSOwnerDoors.getChildren()) {
+                                    final UserInfo users=userRows.getValue(UserInfo.class);
+                                    users.setUserId(userRows.getKey());
+                                    UsersList.add(users);
+                                    Log.v("Permitted to:",users.toString());
+                                }
+
+                                doorUserList.setAdapter(usersadapter);
+                            }
+
+
+                            @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return view;
 
@@ -99,43 +150,29 @@ public class SharedFragment extends Fragment {
     }
 
 
-
-
-
-
-
-
-
-
-
     private void populateFriendRequets()
     {
-        final String userid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+        //Fill Spinner with all doors
+        final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+        DatabaseReference Doors = FirebaseDatabase.getInstance().getReference().child("UserInfo").child(uid).child("Doors");
 
-        DatabaseReference Doors = FirebaseDatabase.getInstance().getReference().child("UserInfo").child(userid).child("Doors");
-
-        // now lets get all his friends id
         Doors.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // now seprating DataSnapshot according Others and Owner
 
                 DataSnapshot DSOwnerDoors = dataSnapshot.child("Owner");
-                OwnerDoorsList.clear();
-
-
-
+                DoorsList.clear();
 
                 for (DataSnapshot doorRows : DSOwnerDoors.getChildren()) {
                     final Doors doors=doorRows.getValue(Doors.class);
+
                     doors.setDoorId(doorRows.getKey());
-                    OwnerDoorsList.add(doors);
+                    DoorsList.add(doors);
                     Log.v("Owners got:",doors.toString());
                 }
 
                 doorSelector.setAdapter(myadapter);
-               // ownerlistview.setAdapter(owneradaptor);
 
 
             }
@@ -148,14 +185,72 @@ public class SharedFragment extends Fragment {
 
         });
 
+
+        //Fill listview with users for door selected
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference();
+
+        databaseReference. child("UserInfo").child(uid).child("Doors").child("Owner").child("SharedWith")
+                .addValueEventListener(new ValueEventListener() {
+                                           @Override
+                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                               DataSnapshot contactSnapshot = dataSnapshot.child("Owner");
+                                               Iterable<DataSnapshot> contactChildren = contactSnapshot.getChildren();
+                                               for (DataSnapshot contact : contactChildren) {
+                                                   UserInfo c = contact.getValue(UserInfo.class);
+                                                   Log.d("contact:: ", c.getFullName());
+                                                   UsersList.add(c);
+                                               }
+
+
+                                               doorUserList.setAdapter(usersadapter);
+                                           }
+
+                                           @Override
+                                           public void onCancelled(DatabaseError databaseError) {
+
+                                           }
+                                       }
+
+                );
+
+
     }
 
-/*
+    //To give access to new user for door [Button click event]
+    public void addUser(View v){
 
-    private class OwnerDoorAdaptor extends ArrayAdapter<Doors>
+        final String newuserid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+        final String txtAddUser = txtUserId.getText().toString();
+
+        FirebaseDatabase database= FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference().child("UserInfo").child(txtAddUser);
+
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserInfo user = dataSnapshot.getValue(UserInfo.class);
+
+                myRef.child("UserInfo").child(newuserid).child("Doors").child("Owner").child(newuserid).push().setValue(user);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+
+    }
+
+
+
+
+
+    private class UserListAdaptor extends ArrayAdapter<UserInfo>
     {
-        public OwnerDoorAdaptor() {
-            super(getActivity().getBaseContext(),R.layout.ownerdoorlistlistrowview, OwnerDoorsList);
+        public UserListAdaptor() {
+            super(getActivity().getBaseContext(),R.layout.ownerdoorlistlistrowview, UsersList);
         }
 
         @Override
@@ -168,14 +263,14 @@ public class SharedFragment extends Fragment {
             }
 
 
-            final Doors currentDoor= OwnerDoorsList.get(position);
+            final UserInfo users= UsersList.get(position);
             TextView tvdoorname=(TextView) itemview.findViewById(R.id.tvownerdoorlistdoorname);
-            tvdoorname.setText(currentDoor.getDoorName());
+            tvdoorname.setText(users.getFullName());
             return itemview;
         }
     }
 
-*/
+
 
 
     // TODO: Rename method, update argument and hook method into UI event
