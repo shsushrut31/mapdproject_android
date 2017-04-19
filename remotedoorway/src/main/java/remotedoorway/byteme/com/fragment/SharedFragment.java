@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -30,6 +31,8 @@ import java.util.List;
 
 import remotedoorway.byteme.com.R;
 import remotedoorway.byteme.com.models.Doors;
+import remotedoorway.byteme.com.models.DoorsForSpinner;
+import remotedoorway.byteme.com.models.UserAccessList;
 import remotedoorway.byteme.com.models.UserInfo;
 
 public class SharedFragment extends Fragment{
@@ -39,16 +42,16 @@ public class SharedFragment extends Fragment{
     private static final String ARG_PARAM2 = "param2";
 
 
-    List<Doors> DoorsList =new ArrayList<Doors>();
-    List<UserInfo> UsersList =new ArrayList<UserInfo>();
+    List<DoorsForSpinner> DoorsList =new ArrayList<DoorsForSpinner>();
+    List<UserAccessList> UsersList =new ArrayList<UserAccessList>();
 
 
     Spinner doorSelector;
     ListView doorUserList;
     EditText txtUserId;
     Button addUser;
-    ArrayAdapter<Doors> myadapter;
-    ArrayAdapter<UserInfo> usersadapter;
+    ArrayAdapter<DoorsForSpinner> myadapter;
+    ArrayAdapter<UserAccessList> usersadapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -85,15 +88,14 @@ public class SharedFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_shared, container, false);
 
        // String[] myStringArray = {"Alpha", "Beta", "Charlie"};
+        usersadapter = new UserListAdaptor();
 
          doorSelector = (Spinner) view.findViewById(R.id.array_list1);
          doorUserList = (ListView) view.findViewById(R.id.doorUserList);
          txtUserId = (EditText) view.findViewById(R.id.txtEmail);
          addUser = (Button) view.findViewById(R.id.btnAddUser);
-         myadapter = new ArrayAdapter<Doors>(getActivity(),
-                                                                android.R.layout.simple_list_item_1,
-                 DoorsList);
-        usersadapter = new ArrayAdapter<UserInfo>(getActivity(),
+         myadapter = new ArrayAdapter<DoorsForSpinner>(getActivity(), android.R.layout.simple_list_item_1, DoorsList);
+        usersadapter = new ArrayAdapter<UserAccessList>(getActivity(),
                                                             android.R.layout.simple_list_item_1,
                                                              UsersList);
 
@@ -104,18 +106,20 @@ public class SharedFragment extends Fragment{
 
                 final String switchuserid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
                 final String txtAddUser = parent.getItemAtPosition(position).toString();
+                final String userID = DoorsList.get(position).getDoorId();
+                //Toast.makeText(getActivity(),DoorsList.get(position).getDoorId(),Toast.LENGTH_SHORT).show();
 
                 FirebaseDatabase database= FirebaseDatabase.getInstance();
                 DatabaseReference databaseReference = database.getReference();
-                databaseReference.child("UserInfo").child(switchuserid).child("Doors").child("Owner").child(switchuserid)
+                databaseReference.child("UserInfo").child(switchuserid).child("Doors").child("Owner").child(userID)
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                DataSnapshot DSOwnerDoors = dataSnapshot.child("SharedWith");
+                                DataSnapshot DSDoorUsers = dataSnapshot.child("SharedWith");
                                 UsersList.clear();
 
-                                for (DataSnapshot userRows : DSOwnerDoors.getChildren()) {
-                                    final UserInfo users=userRows.getValue(UserInfo.class);
+                                for (DataSnapshot userRows : DSDoorUsers.getChildren()) {
+                                    final UserAccessList users=userRows.getValue(UserAccessList.class);
                                     users.setUserId(userRows.getKey());
                                     UsersList.add(users);
                                     Log.v("Permitted to:",users.toString());
@@ -146,7 +150,7 @@ public class SharedFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-
+        doorUserList.setAdapter(usersadapter);
     }
 
 
@@ -165,7 +169,7 @@ public class SharedFragment extends Fragment{
                 DoorsList.clear();
 
                 for (DataSnapshot doorRows : DSOwnerDoors.getChildren()) {
-                    final Doors doors=doorRows.getValue(Doors.class);
+                    final DoorsForSpinner doors=doorRows.getValue(DoorsForSpinner.class);
 
                     doors.setDoorId(doorRows.getKey());
                     DoorsList.add(doors);
@@ -187,32 +191,12 @@ public class SharedFragment extends Fragment{
 
 
         //Fill listview with users for door selected
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference();
-
-        databaseReference. child("UserInfo").child(uid).child("Doors").child("Owner").child("SharedWith")
-                .addValueEventListener(new ValueEventListener() {
-                                           @Override
-                                           public void onDataChange(DataSnapshot dataSnapshot) {
-                                               DataSnapshot contactSnapshot = dataSnapshot.child("Owner");
-                                               Iterable<DataSnapshot> contactChildren = contactSnapshot.getChildren();
-                                               for (DataSnapshot contact : contactChildren) {
-                                                   UserInfo c = contact.getValue(UserInfo.class);
-                                                   Log.d("contact:: ", c.getFullName());
-                                                   UsersList.add(c);
-                                               }
+      //  FirebaseDatabase database = FirebaseDatabase.getInstance();
+      //  DatabaseReference Users = FirebaseDatabase.getInstance().getReference().child("UserInfo").child(uid).child("Doors").child("Owner");
 
 
-                                               doorUserList.setAdapter(usersadapter);
-                                           }
 
-                                           @Override
-                                           public void onCancelled(DatabaseError databaseError) {
-
-                                           }
-                                       }
-
-                );
+       //         );
 
 
     }
@@ -247,7 +231,7 @@ public class SharedFragment extends Fragment{
 
 
 
-    private class UserListAdaptor extends ArrayAdapter<UserInfo>
+    private class UserListAdaptor extends ArrayAdapter<UserAccessList>
     {
         public UserListAdaptor() {
             super(getActivity().getBaseContext(),R.layout.ownerdoorlistlistrowview, UsersList);
@@ -263,7 +247,7 @@ public class SharedFragment extends Fragment{
             }
 
 
-            final UserInfo users= UsersList.get(position);
+            final UserAccessList users= UsersList.get(position);
             TextView tvdoorname=(TextView) itemview.findViewById(R.id.tvownerdoorlistdoorname);
             tvdoorname.setText(users.getFullName());
             return itemview;
