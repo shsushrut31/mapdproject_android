@@ -54,7 +54,6 @@
             android:layout_alignTop="@+id/txtEmail"
             android:layout_marginEnd="13dp"
             android:background="#FFEB3B"
-            android:onClick="addUser"
             android:text="Add User" />
 
         <ListView

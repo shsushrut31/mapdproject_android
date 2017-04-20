@@ -42,7 +42,7 @@ import java.util.Map;
 
 import remotedoorway.byteme.com.R;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity implements SignupView{
 
     private EditText inputEmail, inputPassword;
     private Button btnSignIn, btnSignUp, btnResetPassword;
@@ -50,11 +50,16 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     String firebaseImgUrl;
     String picturePath;
+    private SignupPresenter presenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        presenter = new SignupPresenter(this, new SignupService() {
+        });
+
         setContentView(R.layout.activity_signup);
 
         if (ContextCompat.checkSelfPermission(SignupActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -185,7 +190,7 @@ public class SignupActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                presenter.onClick();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 String confirmpassword = ((EditText)findViewById(R.id.etsignupconfirmpassword)).getText().toString();
@@ -313,5 +318,25 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public String getUserName() {
+        return inputEmail.getText().toString();
+    }
+
+    @Override
+    public void showUsernameError(int resId) {
+        inputEmail.setError(getString(resId));
+    }
+
+    @Override
+    public String getPassword() {
+        return inputPassword.getText().toString();
+    }
+
+    @Override
+    public void showPasswordError(int resId) {
+        inputPassword.setError(getString(resId));
     }
 }

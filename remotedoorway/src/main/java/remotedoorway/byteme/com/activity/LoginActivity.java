@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     @Override
     public void showUsernameError(int resId) {
         inputEmail.setError(getString(resId));
-    }
+}
 
     @Override
     public String getPassword() {

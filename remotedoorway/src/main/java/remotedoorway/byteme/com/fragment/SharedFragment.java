@@ -54,7 +54,7 @@ public class SharedFragment extends Fragment{
     ArrayAdapter<UserAccessList> usersadapter;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String selectedDoor;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -108,7 +108,7 @@ public class SharedFragment extends Fragment{
                 final String txtAddUser = parent.getItemAtPosition(position).toString();
                 final String userID = DoorsList.get(position).getDoorId();
                 //Toast.makeText(getActivity(),DoorsList.get(position).getDoorId(),Toast.LENGTH_SHORT).show();
-
+                selectedDoor = DoorsList.get(position).getDoorId();
                 FirebaseDatabase database= FirebaseDatabase.getInstance();
                 DatabaseReference databaseReference = database.getReference();
                 databaseReference.child("UserInfo").child(switchuserid).child("Doors").child("Owner").child(userID)
@@ -139,6 +139,31 @@ public class SharedFragment extends Fragment{
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        addUser.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                final String newuserid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+                final String txtAddUser = txtUserId.getText().toString();
+
+                FirebaseDatabase database= FirebaseDatabase.getInstance();
+                final DatabaseReference myRef = database.getReference().child("UserInfo").child(newuserid);
+
+                ValueEventListener listener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                      //  Doors user = dataSnapshot.getValue(Doors.class);
+
+                        myRef.child("UserInfo").child(txtAddUser).child("Doors").child("Others").push().setValue(selectedDoor);
+                        Toast.makeText(getActivity(),"Door Shared",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
             }
         });
 
@@ -202,30 +227,7 @@ public class SharedFragment extends Fragment{
     }
 
     //To give access to new user for door [Button click event]
-    public void addUser(View v){
 
-        final String newuserid = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
-        final String txtAddUser = txtUserId.getText().toString();
-
-        FirebaseDatabase database= FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference().child("UserInfo").child(txtAddUser);
-
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                UserInfo user = dataSnapshot.getValue(UserInfo.class);
-
-                myRef.child("UserInfo").child(newuserid).child("Doors").child("Owner").child(newuserid).push().setValue(user);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
-
-    }
 
 
 
